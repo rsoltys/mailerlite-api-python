@@ -1,6 +1,9 @@
+# ⚠️⚠️⚠️⚠️⚠️ WARNING ⚠️⚠️⚠️⚠️⚠️ : This REPO is no longer maintained in favor of the official mailerlite python client [look here](https://github.com/mailerlite/mailerlite-python)
+
+
 # Mailerlite-api-python
 
-Python Wrapper for Mailerlite API v2
+Python Wrapper for Mailerlite API
 
 <table align="center">
     <tr>
@@ -15,7 +18,8 @@ Python Wrapper for Mailerlite API v2
       <td align="center"><b>Metrics</b></td>
       <td align="center">
         <a href="https://app.codacy.com/manual/skab12/mailerlite-api-python?utm_source=github.com&utm_medium=referral&utm_content=skoudoro/mailerlite-api-python&utm_campaign=Badge_Grade_Dashboard
-"><img src="https://api.codacy.com/project/badge/Grade/9c17e95d29cd489ba86411db969a576e" alt="codacy mailerlite python"></a> <a href="https://codecov.io/gh/skoudoro/mailerlite-api-python"><img src="https://codecov.io/gh/skoudoro/mailerlite-api-python/branch/master/graph/badge.svg" alt="codecov mailerlite python"></a>
+"><img src="https://api.codacy.com/project/badge/Grade/9c17e95d29cd489ba86411db969a576e" alt="codacy mailerlite python"></a>
+<!-- <a href="https://codecov.io/gh/skoudoro/mailerlite-api-python"><img src="https://codecov.io/gh/skoudoro/mailerlite-api-python/branch/master/graph/badge.svg" alt="codecov mailerlite python"></a>  -->
       </td>
     </tr>
     <tr>
@@ -47,7 +51,13 @@ pip install -e .
 
 ## Method reference
 
-For the complete reference, visit the [official MailerLite API reference](https://developers.mailerlite.com/reference).
+For the complete reference, visit the [official MailerLite API reference](https://developers-classic.mailerlite.com/reference).
+
+## Notes
+
+This version is handling the V2_BETA API (classic version).
+
+we are currently updating the project to handle the new V2 released last summer 2022.
 
 ## Examples
 
@@ -96,8 +106,8 @@ Then, you do not need to precise it in your code:
             "name": "Regular campaign name",
             "groups": [2984475, 3237221],
             "type": "regular"}
->>> api.campaign.create(data)
->>> api.campaign.delete(campaign_id=3971635)
+>>> api.campaigns.create(data)
+>>> api.campaigns.delete(campaign_id=3971635)
 ```
 
 #### Send a campaign
@@ -108,7 +118,7 @@ Then, you do not need to precise it in your code:
             "groups": [2984475, 3237221],
             "type": "regular"}
 >>>
->>> _, res = api.campaign.create(data)
+>>> _, res = api.campaigns.create(data)
 >>> campaign_id = res['id']
 >>>
 >>> html = '<head></head><body><h1>Your Title</h1><p>Your Content</p><p><small>'
@@ -117,8 +127,8 @@ Then, you do not need to precise it in your code:
 >>> plain += "Open newsletter here: {$url}. If you do not want"
 >>> plain += " to receive emails from us, click here: {$unsubscribe}"
 >>>
->>> api.campaign.update(campaign_id, html=html, plain=plain)
->>> api.campaign.send(campaign_id)
+>>> api.campaigns.update(campaign_id, html=html, plain=plain)
+>>> api.campaigns.send(campaign_id)
 ```
 
 #### Cancel a scheduled campaign
@@ -127,15 +137,15 @@ Then, you do not need to precise it in your code:
 >>> outbox_campaigns = campaign_obj.all(status='outbox', limit=5)
 >>> selected_campaign = outbox_campaigns[0]
 >>>
->>> api.campaign.cancel(selected_campaign.id)
+>>> api.campaigns.cancel(selected_campaign.id)
 ```
 
 
 #### count campaign
 
 ```python
->>> api.campaign.count()
->>> api.campaign.count(status='draft')
+>>> api.campaigns.count()
+>>> api.campaigns.count(status='draft')
 ```
 
 ### Subscribers
